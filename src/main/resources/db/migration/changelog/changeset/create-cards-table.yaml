@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-cards
+      author: Demid
+      changes:
+        - createTable:
+            tableName: cards
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: number_encrypted
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: number_last4
+                  type: varchar(4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: balance
+                  type: decimal(15, 2)
+                  defaultValueNumeric: 0.00
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expiration
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+                  defaultValue: 'ACTIVE'
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: cards
+            baseColumnNames: user_id
+            constraintName: fk_cards_users
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addCheckConstraint:
+            tableName: cards
+            constraintName: check_card_status
+            checkCondition: status IN ('ACTIVE', 'BLOCKED', 'EXPIRED')

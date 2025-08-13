@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-users
+      author: Demid
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+        - addCheckConstraint:
+            tableName: users
+            constraintName: check_user_role
+            checkCondition: role IN ('ADMIN', 'USER')
