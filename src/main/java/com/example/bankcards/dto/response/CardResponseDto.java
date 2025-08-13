@@ -4,12 +4,14 @@ import com.example.bankcards.entity.enums.CardStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Schema(name = "CardResponse", description = "Card returned to client (masked number)")
 public class CardResponseDto {
     @Schema(description = "Card id", example = "123")

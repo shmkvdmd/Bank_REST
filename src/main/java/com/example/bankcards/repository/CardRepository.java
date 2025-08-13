@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
     boolean existsByNumberEncrypted(String numberEncrypted);
+
     Page<Card> findAllByUserId(Pageable pageable, Long userId);
+
     Page<Card> findAllByUserIdAndStatus(Pageable pageable, Long userId, CardStatus status);
 }

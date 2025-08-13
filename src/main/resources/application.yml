@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/bankcardsdb
-    username: user
-    password: userpass
+    url: jdbc:postgresql://localhost:5433/bankcardsdb
+    username: postgres
+    password: "171003al"
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -29,9 +29,9 @@ security:
   basic:
     enable: false
 
-  jwt:
-    expiration: 86400000
-    secret: SxQ8TM2epeSZJoQ9CydmBe9GRjxpBGGQGAB8YijZY4k=
+jwt:
+  expiration: 86400000
+  secret: SxQ8TM2epeSZJoQ9CydmBe9GRjxpBGGQGAB8YijZY4k=
 
 springdoc:
   api-docs:

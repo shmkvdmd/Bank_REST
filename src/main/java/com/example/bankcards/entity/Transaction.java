@@ -10,8 +10,10 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(exclude = {"senderCard", "receiverCard"})
 @ToString(exclude = {"senderCard", "receiverCard"})
 @Builder

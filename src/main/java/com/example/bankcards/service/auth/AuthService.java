@@ -4,5 +4,6 @@ import com.example.bankcards.dto.request.AuthRequestDto;
 
 public interface AuthService {
     String login(AuthRequestDto authRequest);
+
     String register(AuthRequestDto authRequest);
 }

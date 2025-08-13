@@ -1,7 +1,8 @@
 package com.example.bankcards.constants;
 
 public class LogConstants {
-    private LogConstants() {}
+    private LogConstants() {
+    }
 
     public static final String NOT_FOUND = "NotFound: {}";
     public static final String UNEXPECTED_ERROR = "Unexpected error: {}";

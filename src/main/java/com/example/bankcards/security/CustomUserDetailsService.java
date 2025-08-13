@@ -21,8 +21,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         if (user.isPresent()) {
             return new CustomUserDetails(user.get());
-        }
-        else{
+        } else {
             throw new UsernameNotFoundException("Пользователь с именем - " + username + ", не найден");
         }
     }

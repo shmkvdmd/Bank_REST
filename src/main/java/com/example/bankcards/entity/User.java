@@ -9,8 +9,10 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(exclude = "cards")
 @ToString(exclude = "cards")
 @Builder

@@ -79,7 +79,7 @@ public class TransactionServiceImpl implements TransactionService {
             throw new IllegalArgumentException(String.format(ExceptionConstants.CARD_NOT_ACTIVE, sender.getId()));
         }
 
-        if (sender.getBalance().compareTo(requestDto.getAmount()) < 0){
+        if (sender.getBalance().compareTo(requestDto.getAmount()) < 0) {
             log.warn(LogConstants.AMOUNT_ERROR, sender.getId(), requestDto.getAmount(), sender.getBalance());
             throw new IllegalArgumentException(String.format(ExceptionConstants.AMOUNT_ERROR, sender.getId()));
         }

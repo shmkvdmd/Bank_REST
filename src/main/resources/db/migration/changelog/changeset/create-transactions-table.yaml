@@ -25,19 +25,19 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: amount
-                  type: decimal(15, 2)
+                  type: 'decimal(15,2)'
                   constraints:
                     nullable: false
               - column:
                   name: status
                   type: varchar(50)
-                  defaultValue: 'IN_PROCESS'
+                  defaultValue: IN_PROCESS
                   constraints:
                     nullable: false
               - column:
                   name: created_at
                   type: timestamptz
-                  defaultValueComputed: "CURRENT_TIMESTAMP"
+                  defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
@@ -54,15 +54,15 @@ databaseChangeLog:
             referencedTableName: cards
             referencedColumnNames: id
             onDelete: CASCADE
-        - addCheckConstraint:
-            tableName: transactions
-            constraintName: check_amount_positive
-            checkCondition: amount > 0
-        - addCheckConstraint:
-            tableName: transactions
-            constraintName: check_sender_not_receiver
-            checkCondition: sender_card_id != receiver_card_id
-        - addCheckConstraint:
-            tableName: transactions
-            constraintName: check_transaction_status
-            checkCondition: status IN ('IN_PROCESS', 'COMPLETED', 'FAILED')
+        #- addCheckConstraint:
+        #    tableName: transactions
+        #    constraintName: check_amount_positive
+        #    checkCondition: "amount > 0"
+        #- addCheckConstraint:
+        #    tableName: transactions
+        #    constraintName: check_sender_not_receiver
+        #    checkCondition: "sender_card_id != receiver_card_id"
+        #- addCheckConstraint:
+        #    tableName: transactions
+        #    constraintName: check_transaction_status
+        #    checkCondition: "status IN ('IN_PROCESS','COMPLETED','FAILED')"

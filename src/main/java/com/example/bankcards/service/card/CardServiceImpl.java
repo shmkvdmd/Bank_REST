@@ -95,8 +95,8 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public CardResponseDto activateCard(Long cardId) {
-        log.info(LogConstants.CARD_ACTIVATE_START, cardId, SecurityContextHolder.
-                getContext().getAuthentication().getName());
+        log.info(LogConstants.CARD_ACTIVATE_START, cardId,
+                SecurityContextHolder.getContext().getAuthentication().getName());
         Card card = cardRepository.findById(cardId).orElseThrow(() -> {
             log.warn(LogConstants.CARD_ACTIVATE_ERROR, cardId);
             return new NotFoundException(String.format(ExceptionConstants.CARD_NOT_FOUND_BY_ID, cardId));
@@ -158,7 +158,7 @@ public class CardServiceImpl implements CardService {
         return cards.map(cardMapper::toDto);
     }
 
-    public void checkAccessToCard(Card card){
+    public void checkAccessToCard(Card card) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUsername(username).orElseThrow(() -> {
             log.warn(LogConstants.USER_GET_ERROR, username);
