@@ -1,4 +1,3 @@
-
 package com.example.bankcards.config;
 
 import com.example.bankcards.security.JwtFilter;
@@ -22,7 +21,24 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private final JwtFilter jwtFilter;
+
+    private static final String[] PUBLIC_ENDPOINTS = {
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/api-docs/**",
+            "/v3/api-docs.yaml",
+            "/docs/**",
+            "/api/auth/**"
+    };
+
+    private static final String[] USER_ENDPOINTS = {
+            "/api/users/**",
+            "/api/cards/**",
+            "/api/transactions/**"
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,13 +47,9 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/v3/api-docs/**", "/v3/api-docs.yaml", "/swagger-ui/**",
-                                "/swagger-ui.html", "/docs/**").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/users/**").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/api/cards/**").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/api/transactions/**").hasAnyRole("ADMIN", "USER")
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers(USER_ENDPOINTS).hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
@@ -45,7 +57,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

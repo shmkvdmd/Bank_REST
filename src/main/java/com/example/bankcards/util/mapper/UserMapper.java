@@ -7,7 +7,5 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
-    User toEntity(UserResponseDto userResponseDto);
-
     UserResponseDto toDto(User user);
 }

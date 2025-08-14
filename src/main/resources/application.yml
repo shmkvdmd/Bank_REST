@@ -1,17 +1,17 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/bankcardsdb
-    username: postgres
-    password: "171003al"
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: validate
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:validate}
     show-sql: true
     properties:
       hibernate:
@@ -25,13 +25,9 @@ logging:
   level:
     root: info
 
-security:
-  basic:
-    enable: false
-
 jwt:
-  expiration: 86400000
-  secret: SxQ8TM2epeSZJoQ9CydmBe9GRjxpBGGQGAB8YijZY4k=
+  expiration: ${JWT_EXPIRATION:86400000}
+  secret: ${JWT_SECRET}
 
 springdoc:
   api-docs:
@@ -41,5 +37,5 @@ springdoc:
     enabled: true
 
 encryption:
-  algorithm: AES
-  key: hV1o1JnXr4rgwlBpUZ/KL6mPEDZkwGT76jZcZGIIIoo=
+  algorithm: ${ENCRYPTION_ALGORITHM:AES}
+  key: ${ENCRYPTION_KEY}

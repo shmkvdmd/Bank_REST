@@ -5,15 +5,15 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_DB: bankcardsdb
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - bankcards_db_data:/var/lib/postgresql/data
       - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user -d bankcardsdb -h localhost || exit 1"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d bankcardsdb -h localhost || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -25,10 +25,15 @@ services:
     depends_on:
       - db
     environment:
+      SERVER_PORT: 8080
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/bankcardsdb
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      JWT_EXPIRATION: 86400000
+      JWT_SECRET: ${JWT_SECRET}
+      ENCRYPTION_ALGORITHM: AES
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
     ports:
       - "8080:8080"
     healthcheck:

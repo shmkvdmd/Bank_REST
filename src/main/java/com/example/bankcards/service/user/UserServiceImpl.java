@@ -17,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -40,6 +42,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<UserResponseDto> getAllUsers(Pageable pageable) {
         log.info("getAllUsers pageable={}", pageable);
+        List<User> users = userRepository.findAll();
+        List<UserResponseDto> userList = userRepository.findAll().stream().map(userMapper::toDto).toList();
         return userRepository.findAll(pageable).map(userMapper::toDto);
     }
 
